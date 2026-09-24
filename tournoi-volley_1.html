@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Championnat de Volley Vaud — Inscriptions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blanc:#FFFFFF;
+    --creme:#FFF9F3;
+    --orange:#F2600C;
+    --orange-dark:#C94A05;
+    --bleu:#164A80;
+    --bleu-clair:#2E70B5;
+    --encre:#1B1B1B;
+    --gris:#6B6560;
+    --ligne:#EAE0D5;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none!important;transition:none!important;} }
+
+  body{
+    margin:0;
+    font-family:'Work Sans',sans-serif;
+    color:var(--encre);
+    background:var(--blanc);
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{
+    font-family:'Anton',sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.95;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:var(--blanc);
+    padding:72px 0 120px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:0; right:0;
+    width:58%;
+    height:100%;
+    background:var(--orange);
+    clip-path:polygon(28% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    align-items:center;
+    gap:32px;
+  }
+  .eyebrow{
+    font-size:0.95rem;
+    color:var(--bleu);
+    font-weight:700;
+    margin:0 0 14px;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    color:var(--encre);
+    margin:0 0 18px;
+  }
+  .hero h1 span{color:var(--bleu);}
+  .hero p.lede{
+    font-size:1.1rem;
+    color:var(--gris);
+    max-width:44ch;
+    margin:0 0 32px;
+  }
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:14px 28px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:1rem;
+    cursor:pointer;
+    border:2px solid transparent;
+    text-decoration:none;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:focus-visible{outline:3px solid var(--bleu); outline-offset:3px;}
+  .btn-primary{background:var(--bleu); color:var(--blanc);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 8px 20px rgba(22,74,128,0.35);}
+  .btn-ghost{background:transparent; border-color:var(--encre); color:var(--encre);}
+  .btn-ghost:hover{background:var(--encre); color:var(--blanc);}
+
+  .ball-stage{position:relative; height:340px;}
+  .ball{position:absolute; filter:drop-shadow(0 18px 26px rgba(0,0,0,0.18));}
+  .ball.b1{width:230px; top:0; right:10px;}
+  .ball.b2{width:110px; top:210px; right:190px; opacity:0.92;}
+
+  /* ---------- INFOS ---------- */
+  .infos{padding:88px 0 40px;}
+  .section-head{max-width:56ch; margin:0 0 44px;}
+  .section-head .tag{color:var(--orange-dark); font-weight:700; font-size:0.95rem; margin:0 0 8px;}
+  .section-head h2{font-size:clamp(1.9rem,3.4vw,2.6rem); margin:0 0 12px;}
+  .section-head p{color:var(--gris); margin:0;}
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  .info-card{
+    background:var(--creme);
+    border:1px solid var(--ligne);
+    border-radius:var(--radius);
+    padding:26px 24px;
+  }
+  .info-card .k{font-size:0.85rem; color:var(--gris); font-weight:600; margin:0 0 6px;}
+  .info-card .v{font-family:'Anton',sans-serif; font-size:1.5rem; color:var(--bleu); margin:0;}
+  .info-card .d{font-size:0.92rem; color:var(--gris); margin:8px 0 0;}
+
+  /* ---------- PRIX ---------- */
+  .prize{
+    background:var(--orange);
+    padding:56px 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .prize-inner{
+    display:flex;
+    align-items:baseline;
+    gap:22px;
+    flex-wrap:wrap;
+  }
+  .prize-amount{
+    font-size:clamp(4rem, 11vw, 7.5rem);
+    color:var(--encre);
+    margin:0;
+    line-height:0.85;
+  }
+  .prize-star{
+    font-size:clamp(1.6rem, 3vw, 2.4rem);
+    color:var(--blanc);
+    align-self:flex-start;
+    margin-top:2px;
+  }
+  .prize-label{
+    font-size:clamp(1.6rem, 3.4vw, 2.3rem);
+    color:var(--blanc);
+    margin:0;
+  }
+  .prize-note{
+    width:100%;
+    font-size:0.85rem;
+    color:rgba(27,27,27,0.75);
+    margin:14px 0 0;
+  }
+
+  /* ---------- CONDITIONS ---------- */
+  .conditions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    min-height:420px;
+  }
+  .conditions-text{
+    padding:88px 48px 88px 24px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .conditions-text .tag{color:var(--orange-dark); font-weight:700; font-size:0.95rem; margin:0 0 8px;}
+  .conditions-text h2{font-size:clamp(1.9rem,3.2vw,2.5rem); margin:0 0 24px;}
+  .conditions-text ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:16px;}
+  .conditions-text li{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+    font-size:1rem;
+  }
+  .conditions-text li .num{
+    font-family:'Anton',sans-serif;
+    color:var(--orange);
+    font-size:1.3rem;
+    flex:none;
+    width:1.4em;
+  }
+  .conditions-visual{
+    position:relative;
+    background:linear-gradient(160deg, var(--orange) 0%, var(--orange-dark) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .conditions-visual svg{width:78%; max-width:360px;}
+
+  /* ---------- FORMAT ---------- */
+  .format{padding:40px 0 88px;}
+  .format-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    border-top:1px solid var(--ligne);
+  }
+  .format-step{
+    padding:22px 18px 22px 0;
+    border-bottom:1px solid var(--ligne);
+  }
+  .format-step + .format-step{border-left:1px solid var(--ligne); padding-left:18px;}
+  .format-step h3{font-size:1.05rem; font-family:'Work Sans',sans-serif; font-weight:700; margin:0 0 6px;}
+  .format-step p{font-size:0.9rem; color:var(--gris); margin:0;}
+
+  /* ---------- INSCRIPTION ---------- */
+  .inscription{
+    background:var(--bleu);
+    color:var(--blanc);
+    padding:88px 0 96px;
+    position:relative;
+    overflow:hidden;
+  }
+  .inscription::after{
+    content:"";
+    position:absolute;
+    width:520px; height:520px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,0.12);
+    right:-180px; bottom:-220px;
+  }
+  .insc-inner{position:relative; z-index:2; display:grid; grid-template-columns:0.9fr 1.1fr; gap:48px;}
+  .insc-left h2{font-size:clamp(1.9rem,3.2vw,2.5rem); margin:0 0 16px; color:var(--blanc);}
+  .insc-left p{color:rgba(255,255,255,0.78); max-width:38ch; margin:0 0 24px;}
+  .insc-left ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;}
+  .insc-left li{display:flex; gap:12px; align-items:flex-start; font-size:0.95rem; color:rgba(255,255,255,0.9);}
+  .insc-left li .dot{width:8px; height:8px; border-radius:50%; background:var(--orange); margin-top:7px; flex:none;}
+
+  form.card{
+    background:var(--blanc);
+    color:var(--encre);
+    border-radius:var(--radius);
+    padding:32px;
+  }
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-size:0.88rem; font-weight:600; margin-bottom:6px;}
+  .field input, .field select{
+    width:100%;
+    padding:12px 14px;
+    border-radius:8px;
+    border:1.5px solid var(--ligne);
+    font-family:inherit;
+    font-size:0.98rem;
+    background:var(--creme);
+  }
+  .field input:focus, .field select:focus{
+    outline:none;
+    border-color:var(--bleu);
+    background:var(--blanc);
+  }
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .hint{font-size:0.8rem; color:var(--gris); margin-top:6px;}
+  .submit-btn{
+    width:100%;
+    border:none;
+    background:var(--orange);
+    color:var(--blanc);
+    padding:15px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:1.02rem;
+    cursor:pointer;
+    margin-top:6px;
+  }
+  .submit-btn:hover{background:var(--orange-dark);}
+  .submit-btn:disabled{opacity:0.6; cursor:progress;}
+  .form-msg{
+    margin-top:16px;
+    padding:14px 16px;
+    border-radius:10px;
+    font-size:0.92rem;
+    display:none;
+  }
+  .form-msg.ok{display:block; background:#EAF6EC; color:#1F6B33; border:1px solid #BFE3C6;}
+  .form-msg.err{display:block; background:#FBEAE8; color:#B23A2E; border:1px solid #F0C6C0;}
+
+  /* ---------- LISTE ---------- */
+  .roster{padding:80px 0;}
+  .roster-top{display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap;}
+  .roster-top h2{font-size:1.6rem; margin:0;}
+  .roster-count{color:var(--gris); font-size:0.92rem;}
+  table{width:100%; border-collapse:collapse;}
+  th, td{text-align:left; padding:12px 10px; border-bottom:1px solid var(--ligne); font-size:0.92rem;}
+  th{color:var(--gris); font-weight:600; font-size:0.82rem;}
+  .empty{color:var(--gris); font-size:0.92rem; padding:20px 0;}
+
+  footer{padding:40px 0; border-top:1px solid var(--ligne);}
+  footer .wrap{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;}
+  footer p{margin:0; color:var(--gris); font-size:0.85rem;}
+  footer .legal{display:flex; flex-direction:column; gap:4px; align-items:flex-end; text-align:right;}
+  footer .legal a{color:var(--bleu); font-weight:600; text-decoration:none;}
+  footer .legal a:hover{text-decoration:underline;}
+  @media (max-width:600px){
+    footer .wrap{flex-direction:column; align-items:flex-start;}
+    footer .legal{align-items:flex-start; text-align:left;}
+  }
+
+  @media (max-width:820px){
+    .hero-inner{grid-template-columns:1fr;}
+    .ball-stage{height:220px; margin-top:-10px;}
+    .ball.b1{width:170px; right:0;}
+    .ball.b2{width:84px; top:140px; right:130px;}
+    .card-grid{grid-template-columns:repeat(2,1fr);}
+    .conditions{grid-template-columns:1fr;}
+    .conditions-visual{min-height:220px; order:-1;}
+    .conditions-text{padding:56px 24px;}
+    .prize-inner{flex-direction:column; gap:6px;}
+    .format-row{grid-template-columns:1fr;}
+    .format-step + .format-step{border-left:none;}
+    .insc-inner{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    table{font-size:0.82rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Inscriptions ouvertes</p>
+      <h1>Championnat de<br><span>Volley Vaud</span></h1>
+      <p class="lede">Le 22 mai 2027 dès 9h à la Salle Omnisports du Pierrier. Ouvert à toutes les équipes qui connaissent les règles du volley — inscrivez la vôtre en deux minutes.</p>
+      <div class="cta-row">
+        <a href="#inscription" class="btn btn-primary">S'inscrire maintenant</a>
+        <a href="#format" class="btn btn-ghost">Voir le format</a>
+      </div>
+    </div>
+    <div class="ball-stage" aria-hidden="true">
+      <svg class="ball b1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="96" fill="#FFFFFF" stroke="#164A80" stroke-width="4"/>
+        <path d="M100 4 C130 40 130 160 100 196" fill="none" stroke="#164A80" stroke-width="5"/>
+        <path d="M100 4 C70 40 70 160 100 196" fill="none" stroke="#2E70B5" stroke-width="5"/>
+        <path d="M6 74 C50 100 150 100 194 74" fill="none" stroke="#164A80" stroke-width="5"/>
+        <path d="M6 128 C50 102 150 102 194 128" fill="none" stroke="#2E70B5" stroke-width="5"/>
+      </svg>
+      <svg class="ball b2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="96" fill="#FFFFFF" stroke="#164A80" stroke-width="4"/>
+        <path d="M100 4 C130 40 130 160 100 196" fill="none" stroke="#164A80" stroke-width="5"/>
+        <path d="M100 4 C70 40 70 160 100 196" fill="none" stroke="#2E70B5" stroke-width="5"/>
+        <path d="M6 74 C50 100 150 100 194 74" fill="none" stroke="#164A80" stroke-width="5"/>
+        <path d="M6 128 C50 102 150 102 194 128" fill="none" stroke="#2E70B5" stroke-width="5"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section class="prize">
+  <div class="wrap prize-inner">
+    <p class="prize-amount">150.-<span class="prize-star">*</span></p>
+    <p class="prize-label">à gagner pour l'équipe championne</p>
+    <p class="prize-note">*Frais d'inscription de 100.- par équipe à apporter le jour même.</p>
+  </div>
+</section>
+
+<section class="infos wrap">
+  <div class="section-head">
+    <p class="tag">Infos pratiques</p>
+    <h2>Tout ce qu'il faut savoir avant de s'inscrire</h2>
+  </div>
+  <div class="card-grid">
+    <div class="info-card">
+      <p class="k">Date</p>
+      <p class="v">22 mai 2027</p>
+      <p class="d">Accueil des équipes dès 9h00.</p>
+    </div>
+    <div class="info-card">
+      <p class="k">Lieu</p>
+      <p class="v">Le Pierrier</p>
+      <p class="d">Salle Omnisports du Pierrier.</p>
+    </div>
+    <div class="info-card">
+      <p class="k">Équipes</p>
+      <p class="v">6 à 10 joueurs</p>
+      <p class="d">12 ans minimum, mixte accepté.</p>
+    </div>
+    <div class="info-card">
+      <p class="k">Inscription</p>
+      <p class="v">100.-</p>
+      <p class="d">Par équipe, à apporter sur place.</p>
+    </div>
+  </div>
+</section>
+
+<section class="conditions">
+  <div class="conditions-text">
+    <p class="tag">Conditions d'inscription</p>
+    <h2>Vous aimez le volley, alors venez</h2>
+    <ul>
+      <li><span class="num">1</span>Avoir une équipe composée de 6 à 10 joueurs.</li>
+      <li><span class="num">2</span>Avoir 12 ans minimum.</li>
+      <li><span class="num">3</span>Connaître les règles du volley — le tournoi reste ouvert à tout le monde.</li>
+      <li><span class="num">4</span>Apporter 100.- pour les frais d'inscription de l'équipe.</li>
+    </ul>
+  </div>
+  <div class="conditions-visual" aria-hidden="true">
+    <svg viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="90" width="8" height="150" fill="#7A4A28"/>
+      <rect x="332" y="90" width="8" height="150" fill="#7A4A28"/>
+      <rect x="28" y="98" width="304" height="70" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.85"/>
+      <g stroke="#FFFFFF" stroke-width="1" opacity="0.6">
+        <line x1="28" y1="112" x2="332" y2="112"/>
+        <line x1="28" y1="126" x2="332" y2="126"/>
+        <line x1="28" y1="140" x2="332" y2="140"/>
+        <line x1="28" y1="154" x2="332" y2="154"/>
+        <line x1="56" y1="98" x2="56" y2="168"/>
+        <line x1="84" y1="98" x2="84" y2="168"/>
+        <line x1="112" y1="98" x2="112" y2="168"/>
+        <line x1="140" y1="98" x2="140" y2="168"/>
+        <line x1="168" y1="98" x2="168" y2="168"/>
+        <line x1="196" y1="98" x2="196" y2="168"/>
+        <line x1="224" y1="98" x2="224" y2="168"/>
+        <line x1="252" y1="98" x2="252" y2="168"/>
+        <line x1="280" y1="98" x2="280" y2="168"/>
+        <line x1="304" y1="98" x2="304" y2="168"/>
+      </g>
+      <circle cx="180" cy="230" r="46" fill="#FFFFFF"/>
+      <path d="M180 184 C205 205 205 255 180 276" fill="none" stroke="#164A80" stroke-width="4"/>
+      <path d="M180 184 C155 205 155 255 180 276" fill="none" stroke="#2E70B5" stroke-width="4"/>
+      <path d="M136 210 C160 227 200 227 224 210" fill="none" stroke="#164A80" stroke-width="4"/>
+      <path d="M136 250 C160 234 200 234 224 250" fill="none" stroke="#2E70B5" stroke-width="4"/>
+    </svg>
+  </div>
+</section>
+
+<section class="format wrap" id="format">
+  <div class="section-head">
+    <p class="tag">Format</p>
+    <h2>Poules le matin, finales l'après-midi</h2>
+  </div>
+  <div class="format-row">
+    <div class="format-step">
+      <h3>Poules</h3>
+      <p>Chaque équipe joue 3 matchs de poule en 2 sets gagnants.</p>
+    </div>
+    <div class="format-step">
+      <h3>Classement</h3>
+      <p>Les deux premières de chaque poule montent en phase finale.</p>
+    </div>
+    <div class="format-step">
+      <h3>Élimination directe</h3>
+      <p>Quarts, demies et finale en set décisif au tie-break.</p>
+    </div>
+    <div class="format-step">
+      <h3>Remise des prix</h3>
+      <p>Podium et lots pour les trois premières équipes, vers 17h.</p>
+    </div>
+  </div>
+</section>
+
+<section class="inscription" id="inscription">
+  <div class="wrap insc-inner">
+    <div class="insc-left">
+      <h2>Inscrivez votre équipe</h2>
+      <p>Vous recevrez une confirmation par email dès validation de votre inscription.</p>
+      <ul>
+        <li><span class="dot"></span>Réponse à toutes les équipes avant le début du tournoi.</li>
+        <li><span class="dot"></span>Une seule inscription par équipe, un contact référent suffit.</li>
+        <li><span class="dot"></span>Places limitées — premières inscrites, premières servies.</li>
+        <li><span class="dot"></span>100.- de frais d'inscription à apporter le jour du tournoi.</li>
+      </ul>
+    </div>
+
+    <form class="card" id="registrationForm" novalidate>
+      <div class="field-row">
+        <div class="field">
+          <label for="prenom">Prénom</label>
+          <input type="text" id="prenom" name="prenom" required autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label for="nom">Nom</label>
+          <input type="text" id="nom" name="nom" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="equipe">Nom de l'équipe</label>
+        <input type="text" id="equipe" name="equipe" required>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="telephone">Téléphone</label>
+          <input type="tel" id="telephone" name="telephone" required autocomplete="tel" placeholder="06 12 34 56 78">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="niveau">Niveau</label>
+        <select id="niveau" name="niveau">
+          <option value="Loisir">Loisir</option>
+          <option value="Confirmé">Confirmé</option>
+          <option value="Compétition">Compétition</option>
+        </select>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Confirmer l'inscription</button>
+      <p class="hint">En vous inscrivant, vous acceptez d'être recontacté au sujet du tournoi.</p>
+      <div class="form-msg" id="formMsg"></div>
+    </form>
+  </div>
+</section>
+
+<section class="roster wrap">
+  <div class="roster-top">
+    <h2>Équipes inscrites</h2>
+    <span class="roster-count" id="rosterCount">0 équipe inscrite</span>
+  </div>
+  <table id="rosterTable">
+    <thead>
+      <tr><th>Équipe</th><th>Contact</th><th>Niveau</th><th>Inscrite le</th></tr>
+    </thead>
+    <tbody id="rosterBody"></tbody>
+  </table>
+  <p class="empty" id="rosterEmpty">Aucune équipe inscrite pour le moment — soyez la première.</p>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p>Championnat de Volley Vaud</p>
+      <p>Page générée localement — les inscriptions sont enregistrées dans ce navigateur.</p>
+    </div>
+    <div class="legal">
+      <p>Mentions légales — Tous droits réservés à Leonar Kohler.</p>
+      <p>Contact : <a href="mailto:leonar.kohler@eduvaud.ch">leonar.kohler@eduvaud.ch</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.3.0/dist/email.min.js"></script>
+<script>
+/* ============================================================
+   CONFIG — à personnaliser
+   ============================================================
+   Pour activer l'envoi automatique d'un email de confirmation :
+   1. Créez un compte gratuit sur https://www.emailjs.com
+   2. Créez un "Service" (ex: Gmail) et un "Template" d'email
+   3. Remplacez les 3 valeurs ci-dessous par les vôtres
+   Tant que PUBLIC_KEY vaut "", l'inscription est enregistrée
+   localement et aucun email n'est envoyé automatiquement.
+   ============================================================ */
+  const EMAILJS_PUBLIC_KEY  = "";               // ex: "AbCdEfGhIjKlMnOp"
+  const EMAILJS_SERVICE_ID  = "";               // ex: "service_xxxx"
+  const EMAILJS_TEMPLATE_ID = "";               // ex: "template_xxxx"
+
+  if (window.emailjs && EMAILJS_PUBLIC_KEY) {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+
+  const STORAGE_KEY = "volleyTournamentRegistrations";
+  const form = document.getElementById("registrationForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const formMsg = document.getElementById("formMsg");
+  const rosterBody = document.getElementById("rosterBody");
+  const rosterCount = document.getElementById("rosterCount");
+  const rosterEmpty = document.getElementById("rosterEmpty");
+
+  function loadRegistrations() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveRegistrations(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
+
+  function renderRoster() {
+    const list = loadRegistrations();
+    rosterBody.innerHTML = "";
+    rosterCount.textContent = list.length + (list.length > 1 ? " équipes inscrites" : " équipe inscrite");
+    rosterEmpty.style.display = list.length ? "none" : "block";
+    list.slice().reverse().forEach(r => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${escapeHtml(r.equipe)}</td>
+        <td>${escapeHtml(r.prenom)} ${escapeHtml(r.nom)} — ${escapeHtml(r.email)}</td>
+        <td>${escapeHtml(r.niveau)}</td>
+        <td>${new Date(r.date).toLocaleDateString('fr-FR')}</td>
+      `;
+      rosterBody.appendChild(tr);
+    });
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str || "";
+    return div.innerHTML;
+  }
+
+  function showMsg(text, type) {
+    formMsg.textContent = text;
+    formMsg.className = "form-msg " + type;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const data = {
+      prenom: document.getElementById("prenom").value.trim(),
+      nom: document.getElementById("nom").value.trim(),
+      equipe: document.getElementById("equipe").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      telephone: document.getElementById("telephone").value.trim(),
+      niveau: document.getElementById("niveau").value,
+      date: new Date().toISOString()
+    };
+
+    if (!data.prenom || !data.nom || !data.equipe || !data.email || !data.telephone) {
+      showMsg("Merci de remplir tous les champs.", "err");
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Envoi en cours…";
+
+    const list = loadRegistrations();
+    list.push(data);
+    saveRegistrations(list);
+    renderRoster();
+
+    const finish = (sent) => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Confirmer l'inscription";
+      form.reset();
+      if (sent) {
+        showMsg("Inscription enregistrée ! Un email de confirmation a été envoyé à " + data.email + ".", "ok");
+      } else {
+        showMsg("Inscription enregistrée pour l'équipe « " + data.equipe + " ». (Envoi d'email automatique non configuré — voir la section CONFIG dans le code.)", "ok");
+      }
+    };
+
+    if (window.emailjs && EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID) {
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: data.email,
+        prenom: data.prenom,
+        nom: data.nom,
+        equipe: data.equipe,
+        niveau: data.niveau
+      }).then(() => finish(true)).catch(() => finish(false));
+    } else {
+      finish(false);
+    }
+  });
+
+  renderRoster();
+</script>
+
+</body>
+</html>
